@@ -448,6 +448,14 @@ app.get('/health', (req, res) => {
   res.json({ status: 'OK' });
 });
 
+app.get('/test', (req, res) => {
+  res.json({ 
+    message: 'Backend is working',
+    cors: 'enabled',
+    timestamp: new Date().toISOString()
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
