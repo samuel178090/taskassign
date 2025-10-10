@@ -456,6 +456,7 @@ app.get('/test', (req, res) => {
   });
 });
 
+// Force redeploy - CORS fix applied
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
