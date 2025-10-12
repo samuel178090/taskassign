@@ -18,7 +18,9 @@ app.use(cors({
     'https://taskassig.netlify.app',
     'https://task-management-frontend-x8zh.onrender.com'
   ],
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 
