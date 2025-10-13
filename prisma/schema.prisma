@@ -1,5 +1,8 @@
+// prisma/schema.prisma
+
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = [] // add any preview features if needed
 }
 
 datasource db {
@@ -8,17 +11,19 @@ datasource db {
 }
 
 model User {
-  id              String    @id @default(cuid())
-  email           String    @unique
-  password        String
-  role            Role      @default(USER)
-  isLocked        Boolean   @default(false)
-  lockUntil       DateTime?
-  failedAttempts  Int       @default(0)
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  tasks           Task[]
-  refreshTokens   RefreshToken[]
+  id             String         @id @default(cuid())
+  email          String         @unique
+  password       String
+  role           Role           @default(USER)
+  isLocked       Boolean        @default(false)
+  lockUntil      DateTime?
+  failedAttempts Int            @default(0)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  tasks          Task[]
+  refreshTokens  RefreshToken[]
+
+  @@map("users") // map table name to lowercase plural (PostgreSQL convention)
 }
 
 model Task {
@@ -30,6 +35,8 @@ model Task {
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@map("tasks")
 }
 
 model RefreshToken {
@@ -39,6 +46,8 @@ model RefreshToken {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   expiresAt DateTime
   createdAt DateTime @default(now())
+
+  @@map("refresh_tokens")
 }
 
 enum Role {
