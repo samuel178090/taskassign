@@ -116,6 +116,41 @@ router.post('/create-admin', authenticateToken, async (req, res) => {
   }
 });
 
+// TEMPORARY: Remove after creating first admin in production
+router.post('/create-first-admin', async (req, res) => {
+  try {
+    const adminEmail = 'admin@example.com';
+    const adminPassword = 'Admin123456';
+
+    const existingAdmin = await prisma.user.findUnique({
+      where: { email: adminEmail }
+    });
+
+    if (existingAdmin) {
+      return res.status(409).json({ error: 'Admin already exists' });
+    }
+
+    const hashedPassword = await bcrypt.hash(adminPassword, 12);
+
+    const admin = await prisma.user.create({
+      data: {
+        email: adminEmail,
+        password: hashedPassword,
+        role: 'ADMIN'
+      }
+    });
+
+    res.json({ 
+      message: 'Admin created successfully', 
+      email: adminEmail,
+      note: 'REMOVE THIS ENDPOINT IMMEDIATELY FOR SECURITY'
+    });
+  } catch (error) {
+    console.error('Admin creation error:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Login
 router.post('/login', rateLimitLogin, validateLogin, async (req, res) => {
   try {
