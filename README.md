@@ -1,5 +1,8 @@
 Secure Task Management API
 
+(URL= https://taskassig.netlify.app/) 
+Admin: admin@example.com password: Admin123456      User: josephsammy1994@gmai.com password: Mayowa2211.
+
 Enterprise-grade Node.js/Express API implementing JWT authentication, role-based access control (RBAC), and comprehensive security measures to mitigate OWASP Top 10 vulnerabilities.
 
 ## 🏗️ Architecture Overview
@@ -347,19 +350,7 @@ backend/
  Secure HTTP headers (Helmet.js)
  Environment variable management
 
-📝 Production Checklist
-Before deploying to production:
 
-✅ Change all default passwords
-✅ Set strong JWT secrets (256-bit minimum)
-✅ Configure CORS for your frontend domain
-✅ Enable HTTPS/TLS
-✅ Remove /create-first-admin endpoint after use
-✅ Set up database backups
-✅ Configure logging and monitoring
-✅ Review rate limits for your use case
-✅ Set NODE_ENV=production
-✅ Test all authentication flows
 
 📄 License
 MIT License - See LICENSE file for details.
